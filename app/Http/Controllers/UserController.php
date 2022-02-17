@@ -14,4 +14,24 @@ class UserController extends Controller
         $fotos = User::where('id_user','=',$id)->get();
         return view('',['user'=>$user,'fotos'=>$fotos]);
     }
+
+    public function getQr($id){
+        $user = User::where('id','=',$id)->first();
+        $firstName = $user->name;
+        $email = $user->email;
+        
+         $cellPhone = [
+            'type' => 'work',
+            'number' => $user->phone,
+            'cellPhone' => true
+        ];
+        
+        $phones = [$cellPhone];
+        
+        return QRCode::vCard($firstName, $email, $phones)
+                    ->setErrorCorrectionLevel('H')
+                    ->setSize(4)
+                    ->setMargin(2)
+                    ->svg();
+    }
 }
