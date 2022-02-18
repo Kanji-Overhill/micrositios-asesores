@@ -17,4 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/basic', function () {
+    return view('asesores-basic');
+});
+
+Route::get('/pro', function () {
+    return view('asesores-pro');
+});
+
 Route::get('/{url}','App\Http\Controllers\UserController@getUser');
