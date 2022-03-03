@@ -1,30 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!--[if lt IE 9]>
-	    <script>
-	        var e = ("abbr,article,aside,audio,canvas,datalist,details," +
-	        "figure,footer,header,hgroup,mark,menu,meter,nav,output," +
-	        "progress,section,time,video").split(',');
-	        for (var i = 0; i < e.length; i++) {
-	            document.createElement(e[i]);
-	        }
-	    </script>
-	<![endif]-->
-	<title>Micrositio Asesores</title>
-
-	<!-- TALWIND CSS -->
-	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-	<!-- CUSTOM CSS -->
-	<link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}">
-	<!-- FONTS -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
-	<!-- Fancybox CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+	{{ @include('structure.head'); }}
 </head>
 <body>
 	<header class="fixed w-full inse-x-0 top-0 z-50">
@@ -64,23 +41,23 @@
 			</div>
 			<div class="md:w-2/3 rounded-lg mt-10 p-9 bg-white-smoke text-wet-asphalt md:text-lg main-description">
 				<p><strong>Soy experto en asesoría hipotecaria y empresarial. Me ubico en la CDMX.</strong></p>
-				<p>Te puedo ayudar a elegir la mejor alternativa financiera, te acompañare durante todo el proceso, inclusive, aun cuando tu trámite haya concluido, te apoyare a resolver cualquier inquietud que pueda surgir.</p>
+				<p>Te puedo ayudar a elegir la mejor alternativa financiera, te acompañare durante todo el proceso, inclusive, aun cuando tu trámite haya concluido, te apoyaré a resolver cualquier inquietud que pueda surgir.</p>
 			</div>
 		</section>
 
 
 		<section class="my-16">
 			<h2 class="font-bold text-center text-lg text-primary mb-8">Mi experiencia</h2>
-			<div class="grid md:gap-4 gap-8 md:grid-cols-3">
-				<div>
+			<div class="flex flex-wrap md:-mx-4 -mx-8 justify-center">
+				<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 					<figure class="overflow-hidden rounded-full bg-white-smoke mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/people.png') }}" alt=""></figure>
 					<h4 class="text-base text-center">+1,000 asesorías</h4>
 				</div>
-				<div>
+				<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 					<figure class="overflow-hidden rounded-full bg-white-smoke mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/edit-2.png') }}" alt=""></figure>
 					<h4 class="text-base text-center">300 créditos firmados</h4>
 				</div>
-				<div>
+				<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 					<figure class="overflow-hidden rounded-full bg-white-smoke mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/like.png') }}" alt=""></figure>
 					<h4 class="text-base text-center">500 sueños cumplidos</h4>
 				</div>
@@ -120,7 +97,7 @@
 					</figure>
 					<div class="md:px-3 md:pt-3 px-2">
 						<h4 class="font-semibold text-primary mb-4">Conocimiento del crédito</h4>
-						<p>Evaluar y perfilar de manera adecuada al cliente para ofrecer el mejor producto de acuerdo a sus características. Además de llevar de manera adecuada el proceso dl otorgamiento del crédito hipotecario y su formalización.</p>
+						<p>Evaluar y perfilar de manera adecuada al cliente para ofrecer el mejor producto de acuerdo a sus características. Además de llevar de manera adecuada el proceso de otorgamiento del crédito hipotecario y su formalización.</p>
 					</div>
 				</div>
 				<div>

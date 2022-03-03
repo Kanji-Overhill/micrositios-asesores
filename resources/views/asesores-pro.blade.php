@@ -64,18 +64,18 @@
 			</div>
 			<div class="md:w-2/3 rounded-lg mt-10 p-9 bg-white-smoke text-wet-asphalt md:text-lg main-description">
 				<p><strong>Soy experto en asesoría hipotecaria y empresarial. Me ubico en la CDMX.</strong></p>
-				<p>Te puedo ayudar a elegir la mejor alternativa financiera, te acompañare durante todo el proceso, inclusive, aun cuando tu trámite haya concluido, te apoyare a resolver cualquier inquietud que pueda surgir.</p>
+				<p>Te puedo ayudar a elegir la mejor alternativa financiera, te acompañare durante todo el proceso, inclusive, aun cuando tu trámite haya concluido, te apoyaré a resolver cualquier inquietud que pueda surgir.</p>
 
-				<div class="grid md:gap-4 gap-8 md:grid-cols-3">
-					<div>
+				<div class="flex flex-wrap md:-mx-4 -mx-8 justify-center">
+					<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 						<figure class="overflow-hidden rounded-full bg-white mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/people.png') }}" alt=""></figure>
 						<h4 class="font-semibold text-base text-center">+1,000 <br> asesorías</h4>
 					</div>
-					<div>
+					<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 						<figure class="overflow-hidden rounded-full bg-white mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/edit-2.png') }}" alt=""></figure>
 						<h4 class="font-semibold text-base text-center">300 créditos firmados</h4>
 					</div>
-					<div>
+					<div class="md:px-4 px-8 md:mb-0 mb-8 md:w-1/3 w-1/2">
 						<figure class="overflow-hidden rounded-full bg-white mx-auto w-24 h-24 flex items-center justify-center mb-3"><img class="" src="{{ URL::asset('assets/like.png') }}" alt=""></figure>
 						<h4 class="font-semibold text-base text-center">500 sueños cumplidos</h4>
 					</div>
@@ -101,9 +101,11 @@
 				<div class="px-4 py-2 rounded-md text-md text-center bg-white-smoke text-wet-asphalt">
 					<span>Crédito PyME Simple</span>
 				</div>
+				<?php /*
 				<div class="px-4 py-2 rounded-md text-md text-center bg-white-smoke text-wet-asphalt">
 					<span>Terminal Punto de Venta</span>
 				</div>
+				 */ ?>
 			</div>
 		</section>
 	
@@ -178,14 +180,25 @@
 		<section class="my-16">
 			<h2 class="font-bold text-center text-lg text-primary mb-8">Clientes satisfechos</h2>
 
-			<div class="grid md:gap-4 gap-8 md:grid-cols-3 text-wet-asphalt">
-				<figure class="overflow-hidden rounded-lg md:mb-3 mb-2">
+			<div class="gallery-slider md:-mx-4 mx-8">
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
 					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
 				</figure>
-				<figure class="overflow-hidden rounded-lg md:mb-3 mb-2">
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
 					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
 				</figure>
-				<figure class="overflow-hidden rounded-lg md:mb-3 mb-2">
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
+					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
+				</figure>
+
+				<?php /* "Elementos duplicados para activar el carrusel"  */ ?>
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
+					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
+				</figure>
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
+					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
+				</figure>
+				<figure class="md:w-1/3 sm:1/2 md:px-4 px-1">
 					<img class="w-full rounded-lg object-cover" src="{{ URL::asset('assets/iStock-1280508000.png') }}" alt="">
 				</figure>
 			</div>
@@ -218,5 +231,31 @@
 	<!-- Custom JS -->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
+
+	<!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            $('.gallery-slider').slick({
+                autoplay        :   true,
+                autoplaySpeed   :   5000,
+                infinite        :   true,
+                speed           :   800,
+                arrows          :   true,
+                dots            :   false,
+                slidesToShow    :   3,
+                slidesToScroll  :   1,
+                responsive: [{
+                  breakpoint: 740,
+                  settings: {slidesToShow: 2,slidesToScroll: 1,infinite: true, } },
+                 {
+                  breakpoint: 485,
+                  settings: {slidesToShow: 1,slidesToScroll: 1,infinite: true, }
+                }]
+            });
+        });
+    </script>
 </body>
 </html>

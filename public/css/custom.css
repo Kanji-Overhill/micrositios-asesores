@@ -82,3 +82,8 @@ body{
 	border: none;
 	line-height: 0;
 }
+
+.gallery-slider .slick-prev:before,
+.gallery-slider .slick-next:before {
+	color: var(--primary-color);
+}

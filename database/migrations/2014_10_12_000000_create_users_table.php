@@ -16,21 +16,47 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            // Datos de contacto
             $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('logo');
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+
+            // Imagen de perfil
+            $table->string('logo')->nullable();
+
+            // Imagen de perfil
+            $table->string('subtitle')->nullable();
+            $table->text('description')->nullable();
+
+            // Slug o identificador amigable
             $table->string('url');
-            $table->string('widget_url');
-            $table->string('twitter');
-            $table->string('linkedin');
-            $table->string('facebook');
-            $table->string('instagram');
-            $table->string('geo_location');
-            $table->string('direccion');
-            $table->string('level');
-            $table->timestamp('email_verified_at')->nullable();
+
+            // Servicios
+            $table->text('servicios')->nullable();
+
+            // Certificaciones
+            $table->text('badges')->nullable();
+            $table->text('statistics')->nullable();
+
+            // Información de oficina
+            $table->integer('id_office')->nullable();
+            $table->string('widget_url')->nullable();
+
+            // Redes sociales
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+
+            # $table->string('geo_location');
+            # $table->string('direccion');
+            
+            // Tipo de micrositio
+            $table->string('level')->nullable();
+            
+            # $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            # $table->rememberToken();
             $table->timestamps();
         });
     }
