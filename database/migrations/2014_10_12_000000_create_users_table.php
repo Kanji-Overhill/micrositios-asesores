@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('whatsapp')->nullable();
 
             // Imagen de perfil
-            $table->string('logo')->nullable();
+            $table->string('main_image')->nullable();
 
             // Imagen de perfil
             $table->string('subtitle')->nullable();
@@ -40,7 +40,6 @@ class CreateUsersTable extends Migration
 
             // Información de oficina
             $table->integer('id_office')->nullable();
-            $table->string('widget_url')->nullable();
 
             // Redes sociales
             $table->string('twitter')->nullable();
