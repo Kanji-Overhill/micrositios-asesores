@@ -3,25 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\UserAsesores;
 use App\Models\Fotos;
+use App\Models\User;
+use App\Models\Empresarial;
+use App\Models\Seguros;
+use App\Models\Servicios;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
-    public function getUser($office,$url){
+    public function getUser($url){
 
-        $user = User::where('url',$url)->first();
+        $user = UserAsesores::where('url',$url)->first();
+
+        $wp = Http::get('https://blog.socasesores.com/wp-json/wp/v2/posts?categories=298&_embed');
+        $wp = json_decode($wp->body());
+
 
         if(!empty($user)){
             $id = $user['id'];
 
-            $view = [
-                '' => 'hipotecario', // Default
-                'hipotecario' => 'hipotecario',
-                'hipotecario-diamante' => 'hipotecario-diamante',
-                'empresarial' => 'empresarial',
-                'empresarial-diamante' => 'empresarial-diamante',
-            ];
+            $oficina_datos = User::where('id_sisec',$user['id_office'])->first();
+            if ($oficina_datos == null) {
+                $oficina_datos = Empresarial::where('id_sisec',$user['id_office'])->first();
+                if ($oficina_datos == null) {
+                     $oficina_datos = Seguros::where('id_sisec',$user['id_office'])->first();
+                }
+            }else{
+
+            }
 
             $badges = [];
             if (!empty(@unserialize($user['badges']))) {
@@ -35,33 +46,20 @@ class UserController extends Controller
                 'tUeyTWQXV8I',
             ];
 
-            $blog = [
-                [   'title'=>'Ventajas de cambiar tu hipoteca Infonavit por una bancaria',
-                    'short_desc'=>'Si la deuda de tu pago de hipoteca en el Infonavit sigue creciendo, se está duplicando y no tienes certeza de cuándo la terminarás de pagar, este es el momento de pensar en cambiarla a una opción con la banca comercial.',
-                    'url' => 'https://blog.socasesores.com/ventajas-de-cambiar-tu-hipoteca-infonavit-por-una-bancaria',
-                    'image' => 'https://blog.socasesores.com/wp-content/uploads/2021/07/ventajas-de-cambiar-tu-hipoteca-infonavit-por-una-bancaria.jpg',],
-                [   'title'=>'¿Cuáles son los requisitos para crédito hipotecario?',
-                    'short_desc'=>'¿Es la primera vez que solicitas un financiamiento para vivienda? Entonces es importante que conozcas los requisitos para crédito hipotecario.',
-                    'url' => 'https://blog.socasesores.com/cuales-son-los-requisitos-para-credito-hipotecario/',
-                    'image' => 'https://blog.socasesores.com/wp-content/uploads/2021/06/23-enero.jpg',],
-                [   'title'=>'¿Cómo funcionan los créditos hipotecarios Infonavit en UMAS?',
-                    'short_desc'=>'En 2020 puedes decidir que la deuda y las mensualidades que pagas por tus créditos hipotecarios Infonavit dejen de incrementarse año con año. Conoce las opciones hipotecarias que no sólo te brindarán certeza de tu deuda, sino tasas fijas a lo largo de la vida del préstamo.',
-                    'url' => 'https://blog.socasesores.com/como-funcionan-los-creditos-hipotecarios-infonavit-en-umas/',
-                    'image' => 'https://blog.socasesores.com/wp-content/uploads/2021/07/como-funcionan-los-creditos-hipotecarios-infonavit-en-umas.jpg',],
-            ];
-
             
             $data = [
                 'user' => $user,
                 'fotos' => Fotos::where('user_id',$id)->get(),
-                'office' => Oficinas::where('id_office',$user['id_office'])->first(),
+                'office' => $oficina_datos,
                 'badges' => $badges,
-                'blog' => $blog,
-                'tips' => $tips,
+                'blog' => $wp,
+                'tips' => $tips
             ];
 
             // Ordenamos los servicios por área
-            $serv = Servicios::whereIn('id_service', @unserialize($user['servicios']))->get();
+            $servicios = explode(",", $user['servicios']);
+            $serv = Servicios::whereIn('service_name', $servicios)->get();
+
             if (!empty($serv)) {
                 foreach ($serv as $service) {
                     $data['services'][$service['service_area']][] = $service;
@@ -70,16 +68,107 @@ class UserController extends Controller
             
             $data['user']['QRCode'] = ''; # $this->getQr($id);
 
-            return view($view[$user['level']], $data);
+            if ($user->tipo === "PYME" && $user->level != "") {
+                $tipo = "empresarial";
+            }elseif($user->tipo === "Hipotecario" && $user->level != "") {
+                $tipo = "hipotecario";
+            }elseif($user->tipo === "Hipotecario" && $user->level == "") {
+                $tipo = "hipotecario";
+            }elseif($user->tipo === "PYME" && $user->level == "") {
+                $tipo = "empresarial";
+            }elseif($user->tipo === "Seguros"){
+                $tipo = "seguross";
+            }else{
+                $tipo = "hipotecario";
+            }
+           
+            return view($tipo, $data);
         } else{
-            $users = User::where('id_office',$office)->where('url','like','%'.$url.'%')->get();
+            $users = UserAsesores::where('id_office',$office)->where('url','like','%'.$url.'%')->get();
+            return view('fail',['users' => $users]);
+        }
+
+    }
+
+    public function getUserTesting($url){
+
+        $user = UserAsesores::where('url',$url)->first();
+
+        $wp = Http::get('https://blog.socasesores.com/wp-json/wp/v2/posts?categories=298&_embed');
+        $wp = json_decode($wp->body());
+
+
+        if(!empty($user)){
+            $id = $user['id'];
+
+            $oficina_datos = User::where('id_sisec',$user['id_office'])->first();
+            if ($oficina_datos == null) {
+                $oficina_datos = Empresarial::where('id_sisec',$user['id_office'])->first();
+                if ($oficina_datos == null) {
+                     $oficina_datos = Seguros::where('id_sisec',$user['id_office'])->first();
+                }
+            }else{
+
+            }
+
+            $badges = [];
+            if (!empty(@unserialize($user['badges']))) {
+                foreach(@unserialize($user['badges']) as $badge){
+                    $badges[$badge] = Certificaciones::where('id_badge',$badge)->get();
+                }
+            }
+
+            $tips = [
+                'jt_hHbdvUgU',
+                'tUeyTWQXV8I',
+            ];
+
+            
+            $data = [
+                'user' => $user,
+                'fotos' => Fotos::where('user_id',$id)->get(),
+                'office' => $oficina_datos,
+                'badges' => $badges,
+                'blog' => $wp,
+                'tips' => $tips
+            ];
+
+            // Ordenamos los servicios por área
+            $servicios = explode(",", $user['servicios']);
+            $serv = Servicios::whereIn('service_name', $servicios)->get();
+
+            if (!empty($serv)) {
+                foreach ($serv as $service) {
+                    $data['services'][$service['service_area']][] = $service;
+                }
+            }
+            
+            $data['user']['QRCode'] = ''; # $this->getQr($id);
+
+            if ($user->tipo === "PYME" && $user->level != "") {
+                $tipo = "empresarial";
+            }elseif($user->tipo === "Hipotecario" && $user->level != "") {
+                $tipo = "hipotecario";
+            }elseif($user->tipo === "Hipotecario" && $user->level == "") {
+                $tipo = "hipotecario";
+            }elseif($user->tipo === "PYME" && $user->level == "") {
+                $tipo = "empresarial";
+            }elseif($user->tipo === "Seguros"){
+                $tipo = "seguross";
+            }else{
+                $tipo = "hipotecario";
+            }
+           
+            return view("testing", $data);
+        } else{
+            $users = UserAsesores::where('id_office',$office)->where('url','like','%'.$url.'%')->get();
             return view('fail',['users' => $users]);
         }
 
     }
 
     public function getQr($id){
-        $user = User::where('id','=',$id)->first();
+        /*$user = UserAsesores::where('id','=',$id)->first();
         $firstName = $user->name;
         $email = $user->email;
         
@@ -95,6 +184,6 @@ class UserController extends Controller
                     ->setErrorCorrectionLevel('H')
                     ->setSize(4)
                     ->setMargin(2)
-                    ->svg();
+                    ->svg();*/
     }
 }

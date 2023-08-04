@@ -1,10 +1,10 @@
 <?php
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\UserAsesores;
 use App\Models\Fotos;
 
     function getQr($id){
-        $user = User::where('id','=',$id)->first();
+        $user = UserAsesores::where('id','=',$id)->first();
         $firstName = $user->name;
         $email = $user->email;
         $wordAddress = [
@@ -20,12 +20,17 @@ use App\Models\Fotos;
         $addresses = [$wordAddress];
         $cellPhone = [
             'type' => 'work',
-            'number' => $user->phone,
+            'number' => $user->whatsapp,
             'cellPhone' => true
+        ];
+        $Phone = [
+            'type' => 'work',
+            'number' => $user->phone,
+            'cellPhone' => false
         ];
 
         
-        $phones = [$cellPhone];
+        $phones = [$cellPhone, $Phone];
         
         return QRCode::vCard($firstName, "", "", $email, $addresses, $phones)
                     ->setErrorCorrectionLevel('L')

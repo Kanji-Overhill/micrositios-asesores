@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/silvestre-alberto-gaona-parra', function () {
+    return redirect('/alberto-gaona');
+});
 
 # Route::get('/{url}','App\Http\Controllers\UserController@getUser');
-Route::get('/{office}/{url}','UserController@getUser');
+Route::get('/{url}','App\Http\Controllers\UserController@getUser');
+Route::get('/testing/{url}','App\Http\Controllers\UserController@getUserTesting');
+

@@ -19,3 +19,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+#Redirections
+
+Redirect 301 /silvestre-alberto-gaona-parra https://socasesores.com/micrositios-asesores/alberto-gaona

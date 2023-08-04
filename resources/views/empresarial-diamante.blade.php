@@ -6,9 +6,9 @@
 </head>
 <body>
 	<header class="fixed w-full inse-x-0 top-0 z-50">
-		<div class="container mx-auto max-w-4xl rounded-b-lg bg-primary text-white py-4 md:pl-14 md:pr-6 px-2">
-			<div class="flex justify-between items-center">
-				<figure class="md:w-auto w-2/5 flex items-center">
+		<div class="container mx-auto max-w-4xl rounded-b-lg bg-[#006d4e] text-white py-4 md:pl-14 md:pr-6 px-2">
+			<div class="flex justify-between md:items-center flex-col-reverse md:flex-row">
+				<figure class="md:w-auto flex items-start items-center">
 					<img class="h-11 w-auto max-w-full object-contain mr-1" src="{{ URL::asset('images/white-logo.png') }}" alt="{{ $office['office_name'] }}" />
 					<span class="@php
 						$l = strlen($office['office_name']);
@@ -20,28 +20,28 @@
 						{{ $office['office_name'] }}
 					</span>
 				</figure>
-				<div class="">
-					@if(!empty($user['email']))<a href="mailto:{{ $user['email'] }}" class="inline-block rounded-full bg-secundary p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/sms.png') }}" alt=""></a>@endif
+				<div class="text-right">
+					@if(!empty($user['email']))<a href="mailto:{{ $user['email'] }}" class="inline-block rounded-full border border-white p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/sms.png') }}" alt=""></a>@endif
 
-					@if(!empty($user['phone']))<a href="tel://{{ $user['phone'] }}" class="inline-block rounded-full bg-secundary p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/call-calling.png') }}" alt=""></a>@endif
+					@if(!empty($user['phone']))<a href="tel://{{ $user['phone'] }}" class="inline-block rounded-full border border-white p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/call-calling.png') }}" alt=""></a>@endif
 
-					@if(!empty($user['whatsapp']))<a href="https://wa.me/+52{{ preg_replace('/[\D]+/','',$user['whatsapp']) }}" class="inline-block rounded-full bg-secundary p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/whatsapp.png') }}" alt=""></a>@endif
+					@if(!empty($user['whatsapp']))<a href="https://wa.me/+52{{ preg_replace('/[\D]+/','',$user['whatsapp']) }}" class="inline-block rounded-full border border-white p-2 ml-2"><img class="object-contain w-6 h-6" src="{{ URL::asset('assets/whatsapp.png') }}" alt=""></a>@endif
 
 				</div>
 			</div>
 		</div>
 	</header>
-	<div class="container mx-auto max-w-4xl mt-24 shadow-lg pb-16 mb-16 md:px-14 px-4 rounded-b-lg">
-		<section class="flex justify-end items-end md:h-44 gradient md:-mx-14 -mx-4 md:pt-16 pt-7 pb-7 md:px-0 px-4 relative rounded-t-lg">
-			<span class="bg-cover absolute inset-0 z-0" style="background-image:url({{ '\''.URL::asset('assets/header-bg.png').'\'' }});"></span>
+	<div class="container mx-auto max-w-4xl md:mt-24 mt-32 pt-4 md:pt-0 shadow-lg pb-16 mb-16 md:px-14 px-4 rounded-b-lg">
+		<section class="flex justify-end items-end md:h-44 md:-mx-14 -mx-4 md:pt-16 pt-20 pb-7 md:px-0 px-4 relative rounded-t-lg">
+			<span class="bg-cover bg-right rounded-t-lg absolute inset-0 z-0" style="background-image:url({{ '\''.URL::asset('assets/header.jpg').'\'' }});"></span>
 			<div class="md:w-2/3 w-full text-white relative">
 				<h1 class="md:text-2xl text-xl">{{ $user['name'] }}</h1>
 				<h2 class="font-light md:text-lg">Asesor SOC</h2>
 			</div>
 		</section>
 		<section class="flex flex-wrap">
-			<div class="md:w-1/3 md:inline-block flex md:flex-nowrap flex-wrap items-center">
-				<figure class="block md:-mt-28 -mt-5 relative z-20"><img class="md:w-56 md:h-56 w-40 h-40 object-cover rounded-full md:border-8 border-4 border-white bg-white" src="{{ URL::asset('images/asesores/'.$user['logo']) }}" alt=""></figure>
+			<div class="md:w-1/3 justify-center md:inline-block flex md:flex-nowrap flex-wrap items-center">
+				<figure class="block md:-mt-28 -mt-5 relative z-20"><img class="md:w-56 md:h-56 w-40 h-40 object-cover rounded-full md:border-8 border-4 border-white bg-white" src="{{ $user['logo'] }}" alt=""></figure>
 				<div class="mx-auto block w-40">
 					<strong class="text-nobel block leading-none md:text-xl text-lg">
 						<img src="{{ URL::asset('assets/advanced.png') }}" alt="Advanced Hipotecario" />
@@ -56,7 +56,7 @@
 				<h4 class="font-semibold mb-3">{{ $user['subtitle'] }}</h4>
 				{{ $user['description'] }}
 
-				<div class="flex flex-wrap md:-mx-4 -mx-8 justify-center mt-4">
+				<!--<div class="flex flex-wrap md:-mx-4 -mx-8 justify-center mt-4">
 					@php
 					$statistics = @unserialize($user['statistics']);
 					@endphp
@@ -84,7 +84,7 @@
 					</div>
 					@endif
 
-				</div>
+				</div>-->
 			</div>
 		</section>
 
@@ -118,18 +118,18 @@
 		<section class="my-16">
 			<div class="py-10 px-4 rounded-lg bg-white-smoke flex items-center justify-center flex-col">
 				<figure class="flex items-center">
-					<img class="h-11 w-auto max-w-full object-contain mr-1" src="{{ URL::asset('images/main-logo.png') }}" alt="{{ $office['office_name'] }}" />
+					<img class="h-11 w-auto max-w-full object-contain mr-1" src="{{ URL::asset('images/main-logo.png') }}" alt="{{ $office['name'] }}" />
 					<span class="@php
-						$l = strlen($office['office_name']);
+						$l = strlen($office['name']);
 						if($l < 8){ echo 'text-2xl'; }
 						elseif($l < 12){ echo 'text-xl'; }
 						elseif($l < 18){ echo 'text-lg'; }
 						@endphp
 						 ml-1 text-primary">
-						{{ $office['office_name'] }}
+						{{ $office['name'] }}
 					</span>
 				</figure>
-				<a href="{{ $office['office_link'] }}" class="leading-none py-2 mt-2">Visita nuestra oficina</a>
+				<a href="https://socasesores.com/micrositios/{{ $office['url'] }}" class="link-oficina leading-none py-2 mt-2">Visita nuestra oficina</a>
 			</div>
 		</section>
 
@@ -249,17 +249,19 @@
 		<section>
 			<strong class="text-primary text-center mb-8 block">Déjame acompañarte en las decisiones financieras más importantes de tu vida</strong>
 			<div class="advisor-map w-full md:h-72 h-56 overflow-hidden rounded-lg">
-				{!! $office['office_map'] !!}
+				<!--@if(isset($office['office_map']))
+					{!! $office['office_map'] !!}
+				@endif-->
 
 			</div>
 
 			<div class="text-center mt-8">
-				{{ $office['office_address'] }}
+				{{ $office['direccion'] }}
 
 			</div>
 		</section>
 		
-		<section class="rounded-lg mt-16 px-9 lg:py-20 md:py-12 py-8 bg-white-smoke md:text-lg main-description">
+		<section class="rounded-lg px-9 lg:py-10 md:py-12 py-8 bg-white-smoke md:text-lg main-description">
 			<h2 class="font-bold text-primary text-center mb-8">Mis redes sociales</h2>
 			<div class="flex justify-center">
 				@if(!empty($user['twitter']))
